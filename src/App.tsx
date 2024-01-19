@@ -56,7 +56,7 @@ function App() {
           <AntdApp>
             {/* <DevtoolsProvider> */}
               <Refine
-                dataProvider={dataProvider("https://core-gpuv.onrender.com")}
+                dataProvider={dataProvider("http://localhost:5000")}
                 notificationProvider={useNotificationProvider}
                 routerProvider={routerBindings}
                 authProvider={authProvider}

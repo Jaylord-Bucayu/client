@@ -1,6 +1,6 @@
 import { IResourceComponentsProps } from "@refinedev/core";
-import { AntdListInferencer } from "@refinedev/inferencer/antd";
+import {InferencerList} from './inferencer/list.inferencer'
 
 export const StudentsList: React.FC<IResourceComponentsProps> = () => {
-  return <AntdListInferencer />;
+  return <InferencerList />;
 };

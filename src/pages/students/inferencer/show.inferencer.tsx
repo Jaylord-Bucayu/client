@@ -114,18 +114,25 @@ export const InferencerShow: React.FC<IResourceComponentsProps> = () => {
           label: 'Basic Information',
           children:
                         
-          <Descriptions
-          bordered
-          column={{ xxl: 2, xl: 2, lg: 2, md: 2, sm: 2, xs: 2 }}
-        >
-          <Descriptions.Item label="Student Name">
-            <Text>{record?.user.fullname}</Text>
-          </Descriptions.Item>
-          <Descriptions.Item label="Age">
+       <Descriptions column={1} bordered>
+      <Descriptions.Item label={<Title level={5} style={{ fontSize: '14px' }}>Full name</Title>}>
         <Text>{record?.user.fullname}</Text>
       </Descriptions.Item>
-          {/* Add more items as needed */}
-        </Descriptions>,
+
+      <Descriptions.Item label={<Title level={5} style={{ fontSize: '14px' }}>Email</Title>}>
+        <Text>{record?.email}</Text>
+      </Descriptions.Item>
+      <Descriptions.Item label={<Title level={5} style={{ fontSize: '14px' }}>Mobile</Title>}>
+        <Text>{record?.mobile}</Text>
+      </Descriptions.Item>
+      <Descriptions.Item label={<Title level={5} style={{ fontSize: '14px' }}>Created At</Title>}>
+        <Text>{record?.createdAt}</Text>
+      </Descriptions.Item>
+      <Descriptions.Item label={<Title level={5} style={{ fontSize: '14px' }}>Updated At</Title>}>
+        <Text>{record?.updatedAt}</Text>
+      </Descriptions.Item>
+      {/* Add more title-value pairs as needed */}
+    </Descriptions>,
         },
         {
           key: '2',
@@ -135,7 +142,7 @@ export const InferencerShow: React.FC<IResourceComponentsProps> = () => {
           dataSource={parentDataSource}
           columns={parentColumns}
           pagination={false}
-          style={{ padding: '20px' }} 
+          style={{ overflow:"scroll"}} 
         />,
         },
         {
@@ -144,7 +151,7 @@ export const InferencerShow: React.FC<IResourceComponentsProps> = () => {
           children: <p>{text}</p>,
         },
       ];
-  console.log(record)
+ 
     return (
         <Show isLoading={isLoading}>
             <Collapse items={items} defaultActiveKey={['1']} />  

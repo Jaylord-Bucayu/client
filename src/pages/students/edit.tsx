@@ -1,6 +1,6 @@
 import { IResourceComponentsProps } from "@refinedev/core";
-import { AntdEditInferencer } from "@refinedev/inferencer/antd";
+import { InferencerEdit } from "./inferencer/edit.inferencer";
 
 export const StudentsEdit: React.FC<IResourceComponentsProps> = () => {
-  return <AntdEditInferencer />;
+  return <InferencerEdit />;
 };
