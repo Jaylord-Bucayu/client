@@ -22,52 +22,72 @@ import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import { authProvider } from "./authProvider";
 import { Header } from "./components/header";
 import { ColorModeContextProvider } from "./contexts/color-mode";
+
 import {
-  BlogPostCreate,
-  BlogPostEdit,
-  BlogPostList,
-  BlogPostShow,
-} from "./pages/blog-posts";
+  UserCreate,
+  UserEdit,
+  UserList,
+  UserShow,
+} from "./pages/users";
 import {
-  CategoryCreate,
-  CategoryEdit,
-  CategoryList,
-  CategoryShow,
-} from "./pages/categories";
+  PaymentsCreate,
+  PaymentsEdit,
+  PaymentsList,
+  PaymentsShow,
+} from "./pages/payments";
+
+import {
+  StudentsCreate,
+  StudentsEdit,
+  StudentsList,
+  StudentsShow,
+} from "./pages/students";
+
 import { ForgotPassword } from "./pages/forgotPassword";
 import { Login } from "./pages/login";
 import { Register } from "./pages/register";
 
+
 function App() {
   return (
     <BrowserRouter>
-      <GitHubBanner />
       <RefineKbarProvider>
         <ColorModeContextProvider>
           <AntdApp>
-            <DevtoolsProvider>
+            {/* <DevtoolsProvider> */}
               <Refine
-                dataProvider={dataProvider("https://api.fake-rest.refine.dev")}
+                dataProvider={dataProvider("https://core-gpuv.onrender.com")}
                 notificationProvider={useNotificationProvider}
                 routerProvider={routerBindings}
                 authProvider={authProvider}
                 resources={[
+                
                   {
-                    name: "blog_posts",
-                    list: "/blog-posts",
-                    create: "/blog-posts/create",
-                    edit: "/blog-posts/edit/:id",
-                    show: "/blog-posts/show/:id",
+                    name: "users",
+                    list: "/users",
+                    create: "/users/create",
+                    edit: "/users/edit/:id",
+                    show: "/users/show/:id",
                     meta: {
                       canDelete: true,
                     },
                   },
                   {
-                    name: "categories",
-                    list: "/categories",
-                    create: "/categories/create",
-                    edit: "/categories/edit/:id",
-                    show: "/categories/show/:id",
+                    name: "payments",
+                    list: "/payments",
+                    create: "/payments/create",
+                    edit: "/payments/edit/:id",
+                    show: "/payments/show/:id",
+                    meta: {
+                      canDelete: true,
+                    },
+                  },
+                  {
+                    name: "students",
+                    list: "/students",
+                    create: "/students/create",
+                    edit: "/students/edit/:id",
+                    show: "/students/show/:id",
                     meta: {
                       canDelete: true,
                     },
@@ -98,20 +118,33 @@ function App() {
                   >
                     <Route
                       index
-                      element={<NavigateToResource resource="blog_posts" />}
+                      element={<NavigateToResource resource="users" />}
                     />
-                    <Route path="/blog-posts">
-                      <Route index element={<BlogPostList />} />
-                      <Route path="create" element={<BlogPostCreate />} />
-                      <Route path="edit/:id" element={<BlogPostEdit />} />
-                      <Route path="show/:id" element={<BlogPostShow />} />
+                    
+                    
+                    <Route path="/users">
+                      <Route index element={<UserList />} />
+                      <Route path="create" element={<UserCreate />} />
+                      <Route path="edit/:id" element={<UserEdit />} />
+                      <Route path="show/:id" element={<UserShow />} />
                     </Route>
-                    <Route path="/categories">
-                      <Route index element={<CategoryList />} />
-                      <Route path="create" element={<CategoryCreate />} />
-                      <Route path="edit/:id" element={<CategoryEdit />} />
-                      <Route path="show/:id" element={<CategoryShow />} />
+                    <Route path="/payments">
+                      <Route index element={<PaymentsList />} />
+                      <Route path="create" element={<PaymentsCreate />} />
+                      <Route path="edit/:id" element={<PaymentsEdit />} />
+                      <Route path="show/:id" element={<PaymentsShow />} />
                     </Route>
+
+                    <Route path="/students">
+                      <Route index element={<StudentsList />} />
+                      <Route path="create" element={<StudentsCreate />} />
+                      <Route path="edit/:id" element={<StudentsEdit />} />
+                      <Route path="show/:id" element={<StudentsShow />} />
+                    </Route>
+                   
+
+                  
+                    
                     <Route path="*" element={<ErrorComponent />} />
                   </Route>
                   <Route
@@ -137,8 +170,8 @@ function App() {
                 <UnsavedChangesNotifier />
                 <DocumentTitleHandler />
               </Refine>
-              <DevtoolsPanel />
-            </DevtoolsProvider>
+              {/* <DevtoolsPanel /> */}
+            {/* </DevtoolsProvider> */}
           </AntdApp>
         </ColorModeContextProvider>
       </RefineKbarProvider>
