@@ -24,12 +24,6 @@ import { Header } from "./components/header";
 import { ColorModeContextProvider } from "./contexts/color-mode";
 
 import {
-  UserCreate,
-  UserEdit,
-  UserList,
-  UserShow,
-} from "./pages/users";
-import {
   PaymentsCreate,
   PaymentsEdit,
   PaymentsList,
@@ -37,11 +31,26 @@ import {
 } from "./pages/payments";
 
 import {
+  ParticularCreate,
+  ParticularEdit,
+  ParticularList,
+  ParticularShow,
+} from "./pages/particulars";
+
+
+import {
   StudentsCreate,
-  StudentsEdit,
-  StudentsList,
+  StudentEdit,
+  StudentList,
   StudentsShow,
 } from "./pages/students";
+
+import {
+  SectionsCreate,
+  SectionsEdit,
+  SectionsList,
+  SectionsShow,
+} from "./pages/sections";
 
 import { ForgotPassword } from "./pages/forgotPassword";
 import { Login } from "./pages/login";
@@ -63,11 +72,11 @@ function App() {
                 resources={[
                 
                   {
-                    name: "users",
-                    list: "/users",
-                    create: "/users/create",
-                    edit: "/users/edit/:id",
-                    show: "/users/show/:id",
+                    name: "particulars",
+                    list: "/particulars",
+                    create: "/particulars/create/:id",
+                    edit: "/particulars/edit/:id",
+                    show: "/particulars/show/:id",
                     meta: {
                       canDelete: true,
                     },
@@ -88,6 +97,17 @@ function App() {
                     create: "/students/create",
                     edit: "/students/edit/:id",
                     show: "/students/show/:id",
+                    meta: {
+                      canDelete: true,
+                    },
+                  },
+
+                  {
+                    name: "sections",
+                    list: "/sections",
+                    create: "/sections/create",
+                    edit: "/sections/edit/:id",
+                    show: "/sections/show/:id",
                     meta: {
                       canDelete: true,
                     },
@@ -118,16 +138,17 @@ function App() {
                   >
                     <Route
                       index
-                      element={<NavigateToResource resource="users" />}
+                      element={<NavigateToResource resource="students" />}
                     />
                     
                     
-                    <Route path="/users">
-                      <Route index element={<UserList />} />
-                      <Route path="create" element={<UserCreate />} />
-                      <Route path="edit/:id" element={<UserEdit />} />
-                      <Route path="show/:id" element={<UserShow />} />
+                    <Route path="/particulars">
+                      <Route index element={<ParticularList />} />
+                      <Route path="create/:id" element={<ParticularCreate />} />
+                      <Route path="edit/:id" element={<ParticularEdit />} />
+                      <Route path="show/:id" element={<ParticularShow />} />
                     </Route>
+                  
                     <Route path="/payments">
                       <Route index element={<PaymentsList />} />
                       <Route path="create" element={<PaymentsCreate />} />
@@ -136,10 +157,17 @@ function App() {
                     </Route>
 
                     <Route path="/students">
-                      <Route index element={<StudentsList />} />
+                      <Route index element={<StudentList />} />
                       <Route path="create" element={<StudentsCreate />} />
-                      <Route path="edit/:id" element={<StudentsEdit />} />
+                      <Route path="edit/:id" element={<StudentEdit />} />
                       <Route path="show/:id" element={<StudentsShow />} />
+                    </Route>
+
+                    <Route path="/sections">
+                      <Route index element={<SectionsList />} />
+                      <Route path="create" element={<SectionsCreate />} />
+                      <Route path="edit/:id" element={<SectionsEdit />} />
+                      <Route path="show/:id" element={<SectionsShow />} />
                     </Route>
                    
 

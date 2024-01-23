@@ -1,4 +1,4 @@
 export { StudentsCreate } from './create'
-export { StudentsEdit } from "./edit";
-export { StudentsList } from "./list";
+export { StudentEdit } from "./edit";
+export { StudentList } from "./list";
 export { StudentsShow } from "./show";

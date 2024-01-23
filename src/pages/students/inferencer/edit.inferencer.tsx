@@ -1,18 +1,40 @@
 import React from "react";
-import { IResourceComponentsProps } from "@refinedev/core";
+import { IResourceComponentsProps, useOne, useParsed } from "@refinedev/core";
 import { Edit, useForm, useSelect } from "@refinedev/antd";
-import { Form, Input, DatePicker, Select } from "antd";
+import { Form, Input, DatePicker ,Select} from "antd";
 import dayjs from "dayjs";
 
 export const InferencerEdit: React.FC<IResourceComponentsProps> = () => {
-    const { formProps, saveButtonProps, queryResult } = useForm();
+    const { saveButtonProps, queryResult ,formProps } = useForm();
+
+   
+    const {
+        id,
+        pathname
+      } = useParsed();
+
 
     const studentsData = queryResult?.data?.data;
 
-    const { selectProps: userSelectProps } = useSelect({
-        resource: "users",
-        defaultValue: studentsData?.user?.id,
+    console.log(studentsData)
+
+    // const { data: feesData, isLoading: feesLoading } = useOne({
+    //     resource: `students/fees`,
+        
+    // });
+
+    const { queryResult: sectionSelectProps } = useSelect({
+        resource: "sections",
     });
+
+      
+    const options = Array.isArray(sectionSelectProps?.data?.data)
+    ? sectionSelectProps?.data?.data.map(item => ({
+        value: item.section_name,
+        label: item.section_name,
+      }))
+    : [];
+
 
     return (
         <Edit saveButtonProps={saveButtonProps}>
@@ -51,8 +73,8 @@ export const InferencerEdit: React.FC<IResourceComponentsProps> = () => {
                     <Input />
                 </Form.Item>
                 <Form.Item
-                    label="Username"
-                    name={["username"]}
+                    label="Firstname"
+                    name={["user","firstname"]}
                     rules={[
                         {
                             required: true,
@@ -61,9 +83,10 @@ export const InferencerEdit: React.FC<IResourceComponentsProps> = () => {
                 >
                     <Input />
                 </Form.Item>
-                <Form.Item
-                    label="Role"
-                    name={["role"]}
+
+                 <Form.Item
+                    label="Lastname"
+                    name={["user","lastname"]}
                     rules={[
                         {
                             required: true,
@@ -72,9 +95,10 @@ export const InferencerEdit: React.FC<IResourceComponentsProps> = () => {
                 >
                     <Input />
                 </Form.Item>
+               
                 <Form.Item
-                    label="Created At"
-                    name={["createdAt"]}
+                    label="Date of Birth"
+                    name={["user","birthdate"]}
                     rules={[
                         {
                             required: true,
@@ -86,31 +110,24 @@ export const InferencerEdit: React.FC<IResourceComponentsProps> = () => {
                 >
                     <DatePicker />
                 </Form.Item>
+               
                 <Form.Item
-                    label="Updated At"
-                    name={["updatedAt"]}
-                    rules={[
-                        {
-                            required: true,
-                        },
-                    ]}
-                    getValueProps={(value) => ({
-                        value: value ? dayjs(value) : undefined,
-                    })}
-                >
-                    <DatePicker />
-                </Form.Item>
-                <Form.Item
-                    label="User"
-                    name={["user", "id"]}
+                    label="Section"
+                    name={["section"]}
                     rules={[
                         {
                             required: true,
                         },
                     ]}
                 >
-                    <Select {...userSelectProps} />
+                <Select
+                    defaultValue={`${studentsData?.user.section}`}
+                    style={{ width: 120 }}
+                    options={options}
+                    />
                 </Form.Item>
+                
+               
             </Form>
         </Edit>
     );
