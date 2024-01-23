@@ -9,7 +9,7 @@ import {
     NumberField,
     DateField,
 } from "@refinedev/antd";
-import { Button, Typography } from "antd";
+import { Button, TableProps, Typography } from "antd";
 
 import { Table , Tag, Collapse , Descriptions} from 'antd';
 
@@ -37,7 +37,7 @@ const { Title , Text} = Typography;
   ];
 
 
-  const assessmentsColumns = [
+  const assessmentsColumns:TableProps<IFee>['columns'] = [
     
     {
       title: 'Ref Date',
@@ -59,16 +59,19 @@ const { Title , Text} = Typography;
 
 
 
+
   interface IFee {
     id: number;
     amount: number;
     particulars: string;
     student: number;
-    
+ 
   }
 
-
 export const InferencerShow: React.FC<IResourceComponentsProps> = () => {
+   
+
+   
     const { queryResult } = useShow();
     const { data, isLoading } = queryResult;
      const Link = useLink();
@@ -81,8 +84,6 @@ export const InferencerShow: React.FC<IResourceComponentsProps> = () => {
         id: record?.id,
     });
 
-    const particulars = feesData?.data || [];
-
     const parentDataSource  = [
         {
           key: '1',
@@ -93,7 +94,9 @@ export const InferencerShow: React.FC<IResourceComponentsProps> = () => {
         // Add more data as needed
       ];
 
-      const assessmentsDataSource = particulars;
+      const particulars = feesData?.data || [];
+
+      const assessmentsDataSource = particulars as IFee[];
 
     const items: CollapseProps['items'] = [
         {
@@ -134,7 +137,7 @@ export const InferencerShow: React.FC<IResourceComponentsProps> = () => {
         {
           key: '3',
           label: 'Assessment',
-          children: <Table   
+          children: <Table<IFee> 
           dataSource={assessmentsDataSource}
           columns={assessmentsColumns}
           pagination={false}
