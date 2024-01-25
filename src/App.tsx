@@ -2,6 +2,8 @@ import { Authenticated, GitHubBanner, Refine } from "@refinedev/core";
 import { DevtoolsPanel, DevtoolsProvider } from "@refinedev/devtools";
 import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
 
+import { Sider as CustomSider } from './components/index'
+
 import {
   ErrorComponent,
   ThemedLayoutV2,
@@ -46,10 +48,26 @@ import {
 } from "./pages/students";
 
 import {
+  FeesCreate,
+  FeesEdit,
+  FeesList,
+  FeesShow,
+} from "./pages/fees";
+
+
+import {
+  ClearanceCreate,
+  ClearanceEdit,
+  ClearanceList,
+  ClearanceShow,
+} from "./pages/clearance";
+
+import {
   SectionsCreate,
   SectionsEdit,
   SectionsList,
   SectionsShow,
+  SectionsParticularAdd
 } from "./pages/sections";
 
 import { ForgotPassword } from "./pages/forgotPassword";
@@ -112,6 +130,28 @@ function App() {
                       canDelete: true,
                     },
                   },
+
+                  {
+                    name: "fees",
+                    list: "/fees",
+                    create: "/fees/create",
+                    edit: "/fees/edit/:id",
+                    show: "/fees/show/:id",
+                    meta: {
+                      canDelete: true,
+                    },
+                  },
+
+                  {
+                    name: "clearance",
+                    list: "/clearance",
+                    // create: "/clearance/create",
+                    edit: "/clearance/edit/:id",
+                    show: "/clearance/show/:id",
+                    meta: {
+                      canDelete: true,
+                    },
+                  },
                 ]}
                 options={{
                   syncWithLocation: true,
@@ -130,6 +170,7 @@ function App() {
                         <ThemedLayoutV2
                           Header={() => <Header sticky />}
                           Sider={(props) => <ThemedSiderV2 {...props} fixed />}
+                          // Sider={CustomSider}
                         >
                           <Outlet />
                         </ThemedLayoutV2>
@@ -168,11 +209,26 @@ function App() {
                       <Route path="create" element={<SectionsCreate />} />
                       <Route path="edit/:id" element={<SectionsEdit />} />
                       <Route path="show/:id" element={<SectionsShow />} />
+                      <Route path="add/:id/:section" element={<SectionsParticularAdd />} />
                     </Route>
-                   
 
-                  
-                    
+
+                    <Route path="/fees">
+                      <Route index element={<FeesList />} />
+                      <Route path="create" element={<FeesCreate />} />
+                      <Route path="edit/:id" element={<FeesEdit />} />
+                      <Route path="show/:id" element={<FeesShow />} />
+                    </Route>
+
+
+                    <Route path="/clearance">
+                      <Route index element={<ClearanceList />} />
+                      {/* <Route path="create" element={<ClearanceCreate />} /> */}
+                      <Route path="edit/:id" element={<ClearanceEdit />} />
+                      <Route path="show/:id" element={<ClearanceShow />} />
+                    </Route>
+
+                                  
                     <Route path="*" element={<ErrorComponent />} />
                   </Route>
                   <Route

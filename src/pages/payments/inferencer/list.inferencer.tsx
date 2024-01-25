@@ -6,58 +6,52 @@ import {
     EditButton,
     ShowButton,
     DeleteButton,
-    TagField,
-    EmailField,
     DateField,
 } from "@refinedev/antd";
-import { Table, Space, Typography } from "antd";
-
-const { Text } = Typography;
+import { Table, Space } from "antd";
 
 export const InferencerList: React.FC<IResourceComponentsProps> = () => {
     const { tableProps } = useTable({
         syncWithLocation: true,
     });
 
-    const { data: userData, isLoading: userIsLoading } = useMany({
-        resource: "users",
-        ids: tableProps?.dataSource?.map((item) => item?.user) ?? [],
+    const { data: studentData, isLoading: studentIsLoading } = useMany({
+        resource: "students",
+        ids: tableProps?.dataSource?.map((item) => item?.student) ?? [],
         queryOptions: {
             enabled: !!tableProps?.dataSource,
         },
     });
-  
+
     return (
         <List>
             <Table {...tableProps} rowKey="id">
-
-            <Table.Column
-                    dataIndex={["user", "studentId"]}
-                    title="Student ID"
-                    render={(value: any) => <Text>{value}</Text>}
-                />
-
-
-            <Table.Column
-                    dataIndex={["user", "fullname"]}
-                    title="Name"
-                    render={(value: any) => <Text>{value}</Text>}
-                />
-
+                <Table.Column dataIndex="id" title="Id" />
+                <Table.Column dataIndex="amount" title="Amount" />
+                <Table.Column dataIndex="status" title="Status" />
                 <Table.Column
-                    dataIndex={["user","section"]}
-                    title="Section"
-                    render={(value: any) => <EmailField value={value} />}
+                    dataIndex={["student"]}
+                    title="Student"
+                    render={(value) =>
+                        studentIsLoading ? (
+                            <>Loading...</>
+                        ) : (
+                            studentData?.data?.find((item) => item.id === value)
+                                ?.username
+                        )
+                    }
                 />
-
+                <Table.Column dataIndex="parent" title="Parent" />
                 <Table.Column
-                    dataIndex={["email"]}
-                    title="Email"
-                    render={(value: any) => <EmailField value={value} />}
+                    dataIndex={["createdAt"]}
+                    title="Created At"
+                    render={(value: any) => <DateField value={value} />}
                 />
-                <Table.Column dataIndex="mobile" title="Mobile" />
-               
-               
+                <Table.Column
+                    dataIndex={["updatedAt"]}
+                    title="Updated At"
+                    render={(value: any) => <DateField value={value} />}
+                />
                 <Table.Column
                     title="Actions"
                     dataIndex="actions"

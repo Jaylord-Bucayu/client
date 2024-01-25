@@ -16,18 +16,7 @@ export const InferencerEdit: React.FC<IResourceComponentsProps> = () => {
 
     return (
         <Edit saveButtonProps={saveButtonProps}>
-            <Form {...formProps} layout="vertical">
-                <Form.Item
-                    label="Id"
-                    name={["id"]}
-                    rules={[
-                        {
-                            required: true,
-                        },
-                    ]}
-                >
-                    <Input readOnly disabled />
-                </Form.Item>
+            <Form {...formProps} layout="vertical">          
                 <Form.Item
                     label="Section Name"
                     name={["section_name"]}
@@ -38,39 +27,7 @@ export const InferencerEdit: React.FC<IResourceComponentsProps> = () => {
                     ]}
                 >
                     <Input />
-                </Form.Item>
-               
-              
-               
-                <Form.Item
-                    label="Created At"
-                    name={["createdAt"]}
-                    rules={[
-                        {
-                            required: true,
-                        },
-                    ]}
-                    getValueProps={(value) => ({
-                        value: value ? dayjs(value) : undefined,
-                    })}
-                >
-                    <DatePicker />
-                </Form.Item>
-                <Form.Item
-                    label="Updated At"
-                    name={["updatedAt"]}
-                    rules={[
-                        {
-                            required: true,
-                        },
-                    ]}
-                    getValueProps={(value) => ({
-                        value: value ? dayjs(value) : undefined,
-                    })}
-                >
-                    <DatePicker />
-                </Form.Item>
-               
+                </Form.Item>      
             </Form>
         </Edit>
     );

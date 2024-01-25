@@ -39,7 +39,7 @@ export const InferencerEdit: React.FC<IResourceComponentsProps> = () => {
     return (
         <Edit saveButtonProps={saveButtonProps}>
             <Form {...formProps} layout="vertical">
-                <Form.Item
+                {/* <Form.Item
                     label="Id"
                     name={["id"]}
                     rules={[
@@ -49,7 +49,20 @@ export const InferencerEdit: React.FC<IResourceComponentsProps> = () => {
                     ]}
                 >
                     <Input readOnly disabled />
+                </Form.Item> */}
+
+                <Form.Item
+                    label="Student ID"
+                    name={["user","studentId"]}
+                    rules={[
+                        {
+                            required: true,
+                        },
+                    ]}
+                >
+                   <Input readOnly disabled />
                 </Form.Item>
+
                 <Form.Item
                     label="Email"
                     name={["email"]}
