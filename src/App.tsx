@@ -25,6 +25,8 @@ import { authProvider } from "./authProvider";
 import { Header } from "./components/header";
 import { ColorModeContextProvider } from "./contexts/color-mode";
 
+import { model, adapter } from "./access/accessControl";
+
 import {
   PaymentsCreate,
   PaymentsEdit,
@@ -73,8 +75,11 @@ import {
 import { ForgotPassword } from "./pages/forgotPassword";
 import { Login } from "./pages/login";
 import { Register } from "./pages/register";
-
-
+import { CanAccess } from "@refinedev/core";
+import { newEnforcer } from "casbin";
+  const role = "admin";
+//localStorage.getItem("role") ?? 
+  
 function App() {
   return (
     <BrowserRouter>
@@ -87,18 +92,29 @@ function App() {
                 notificationProvider={useNotificationProvider}
                 routerProvider={routerBindings}
                 authProvider={authProvider}
-                resources={[
-                
+                accessControlProvider={{
+                  can: async ({ resource, action }) => {
+                    const enforcer = await newEnforcer(model, adapter);
+                    const can = await enforcer.enforce(role, resource, action);
+        
+                    return {
+                      can,
+                    };
+                  },
+                }}
+                resources={[               
                   {
                     name: "particulars",
                     list: "/particulars",
                     create: "/particulars/create/:id",
                     edit: "/particulars/edit/:id",
                     show: "/particulars/show/:id",
+                    
                     meta: {
                       canDelete: true,
                     },
                   },
+                 
                   {
                     name: "payments",
                     list: "/payments",
@@ -126,10 +142,12 @@ function App() {
                     create: "/sections/create",
                     edit: "/sections/edit/:id",
                     show: "/sections/show/:id",
+                    clone: "/sections/add/:id/:section",
                     meta: {
                       canDelete: true,
                     },
                   },
+                 
 
                   {
                     name: "fees",
@@ -172,7 +190,9 @@ function App() {
                           Sider={(props) => <ThemedSiderV2 {...props} fixed />}
                           // Sider={CustomSider}
                         >
+                          <CanAccess>
                           <Outlet />
+                          </CanAccess>
                         </ThemedLayoutV2>
                       </Authenticated>
                     }
@@ -212,7 +232,6 @@ function App() {
                       <Route path="add/:id/:section" element={<SectionsParticularAdd />} />
                     </Route>
 
-
                     <Route path="/fees">
                       <Route index element={<FeesList />} />
                       <Route path="create" element={<FeesCreate />} />
@@ -220,15 +239,13 @@ function App() {
                       <Route path="show/:id" element={<FeesShow />} />
                     </Route>
 
-
                     <Route path="/clearance">
                       <Route index element={<ClearanceList />} />
                       {/* <Route path="create" element={<ClearanceCreate />} /> */}
                       <Route path="edit/:id" element={<ClearanceEdit />} />
                       <Route path="show/:id" element={<ClearanceShow />} />
                     </Route>
-
-                                  
+                                
                     <Route path="*" element={<ErrorComponent />} />
                   </Route>
                   <Route

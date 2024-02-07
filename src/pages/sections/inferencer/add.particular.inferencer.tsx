@@ -6,13 +6,10 @@ import dayjs from "dayjs";
 import { IdcardFilled } from "@ant-design/icons";
 
 
-
-
 const { Title } = Typography;
 export const AddInferencer: React.FC<IResourceComponentsProps> = () => {
     const {
-        id,
-       
+        id,  
         pathname
       } = useParsed();
 
@@ -20,8 +17,6 @@ export const AddInferencer: React.FC<IResourceComponentsProps> = () => {
         resource:`sections/particular/create/${id}`,
       
     });
-
-
 
 
     return (

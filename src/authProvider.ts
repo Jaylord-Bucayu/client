@@ -1,29 +1,41 @@
 import { AuthBindings } from "@refinedev/core";
+import axios from 'axios';
 
 export const TOKEN_KEY = "refine-auth";
 
 export const authProvider: AuthBindings = {
   login: async ({ username, email, password }) => {
 
-   
-    if ((username || email) && password) {
-      localStorage.setItem(TOKEN_KEY, username);
+    const response = await axios.post("http://localhost:5000/login", { email, password });
+  
+    
+
+    if(response.data == "Credentials are incorrect.") {
+      return {
+        success: false,
+        error: {
+          name: "LoginError",
+          message: "Invalid username or password",
+        },
+      };
+    }
+
+    else{
+      
+        localStorage.setItem('role',response.data.data.role)
+         localStorage.setItem(TOKEN_KEY, response.data.token);
       return {
         success: true,
         redirectTo: "/",
       };
     }
+    
 
-    return {
-      success: false,
-      error: {
-        name: "LoginError",
-        message: "Invalid username or password",
-      },
-    };
+   
   },
   logout: async () => {
     localStorage.removeItem(TOKEN_KEY);
+    localStorage.removeItem('role');
     return {
       success: true,
       redirectTo: "/login",
