@@ -8,6 +8,12 @@ export const authProvider: AuthBindings = {
    
     if ((username || email) && password) {
       localStorage.setItem(TOKEN_KEY, username);
+
+      await fetch(`https://core-gpuv.onrender.com/ping`);
+
+
+      alert("Login successfully")
+
       return {
         success: true,
         redirectTo: "/",
