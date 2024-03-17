@@ -77,8 +77,7 @@ import { Login } from "./pages/login";
 import { Register } from "./pages/register";
 import { CanAccess } from "@refinedev/core";
 import { newEnforcer } from "casbin";
-  const role = "admin";
-//localStorage.getItem("role") ?? 
+  const role = localStorage.getItem("role")
   
 function App() {
   return (
@@ -88,7 +87,7 @@ function App() {
           <AntdApp>
             {/* <DevtoolsProvider> */}
               <Refine
-                dataProvider={dataProvider("https://core-gpuv.onrender.com")}
+                dataProvider={dataProvider("http://localhost:5000")}
                 notificationProvider={useNotificationProvider}
                 routerProvider={routerBindings}
                 authProvider={authProvider}
@@ -203,6 +202,13 @@ function App() {
                     />
                     
                     
+                    <Route path="/students">
+                      <Route index element={<StudentList />} />
+                      <Route path="create" element={<StudentsCreate />} />
+                      <Route path="edit/:id" element={<StudentEdit />} />
+                      <Route path="show/:id" element={<StudentsShow />} />
+                    </Route>
+                    
                     <Route path="/particulars">
                       <Route index element={<ParticularList />} />
                       <Route path="create/:id" element={<ParticularCreate />} />
@@ -217,12 +223,7 @@ function App() {
                       <Route path="show/:id" element={<PaymentsShow />} />
                     </Route>
 
-                    <Route path="/students">
-                      <Route index element={<StudentList />} />
-                      <Route path="create" element={<StudentsCreate />} />
-                      <Route path="edit/:id" element={<StudentEdit />} />
-                      <Route path="show/:id" element={<StudentsShow />} />
-                    </Route>
+                   
 
                     <Route path="/sections">
                       <Route index element={<SectionsList />} />

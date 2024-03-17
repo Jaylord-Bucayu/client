@@ -150,7 +150,7 @@ export const CreateInferencer: React.FC<IResourceComponentsProps> = () => {
                 </Form.Item>
 
                 <Form.Item
-                    label="Email"
+                    label="Email (* This will be the parent default password)"
                     name={["parent","email"]}
                     rules={[
                         {

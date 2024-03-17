@@ -43,6 +43,8 @@ export const authProvider: AuthBindings = {
   },
   check: async () => {
     const token = localStorage.getItem(TOKEN_KEY);
+
+   
     if (token) {
       return {
         authenticated: true,
@@ -57,11 +59,20 @@ export const authProvider: AuthBindings = {
   getPermissions: async () => null,
   getIdentity: async () => {
     const token = localStorage.getItem(TOKEN_KEY);
+
+    const config = {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    };
+
+    const response = await axios.post("http://localhost:5000/currentUser", { },config);
+
     if (token) {
       return {
         id: 1,
-        name: "John Doe",
-        avatar: "https://i.pravatar.cc/300",
+        name: response.data.data.fullname,
+
       };
     }
     return null;

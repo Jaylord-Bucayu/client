@@ -5,7 +5,11 @@ export const Login = () => {
   return (
     <AuthPage
       type="login"
-      
+      registerLink={false}
+      forgotPasswordLink={false}
+      title={
+      <ThemedTitleV2 text="Alertify" icon={<img src="https://moisture-level-mytj.vercel.app/logo.png" />} collapsed={false} />} 
+     
       // formProps={{
       //   initialValues: { email: "demo@refine.dev", password: "demodemo" },
       // }}

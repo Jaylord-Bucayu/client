@@ -22,16 +22,11 @@ export const adapter = new StringAdapter(`
 p, admin, sections, 
 p, admin, students, 
 p, admin, particulars,
-
+p, admin, clearance,
 
 p, admin, sections/add/*/*,
  
-
-
-
-
-
-p, student, fees, (list)|(create)
+p, student, fees, list
 p, student, payments, list
 
 
