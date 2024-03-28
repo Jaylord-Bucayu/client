@@ -9,6 +9,8 @@ import {
   ThemedLayoutV2,
   ThemedSiderV2,
   useNotificationProvider,
+  ThemedTitleV2
+  
 } from "@refinedev/antd";
 import "@refinedev/antd/dist/reset.css";
 
@@ -22,7 +24,7 @@ import dataProvider from "@refinedev/simple-rest";
 import { App as AntdApp } from "antd";
 import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import { authProvider } from "./authProvider";
-import { Header } from "./components/header";
+import { CustomHeader } from "./components/header";
 import { ColorModeContextProvider } from "./contexts/color-mode";
 
 import { model, adapter } from "./access/accessControl";
@@ -72,6 +74,17 @@ import {
   SectionsParticularAdd
 } from "./pages/sections";
 
+
+import {
+  QeueryCreate,
+  QeueryEdit,
+  QeueryList,
+  QeueryShow,
+} from "./pages/query";
+
+
+
+
 import { ForgotPassword } from "./pages/forgotPassword";
 import { Login } from "./pages/login";
 import { Register } from "./pages/register";
@@ -87,7 +100,7 @@ function App() {
           <AntdApp>
             {/* <DevtoolsProvider> */}
               <Refine
-                dataProvider={dataProvider("http://localhost:5000")}
+                dataProvider={dataProvider("https://core-gpuv.onrender.com")}
                 notificationProvider={useNotificationProvider}
                 routerProvider={routerBindings}
                 authProvider={authProvider}
@@ -108,6 +121,18 @@ function App() {
                     create: "/particulars/create/:id",
                     edit: "/particulars/edit/:id",
                     show: "/particulars/show/:id",
+                    
+                    meta: {
+                      canDelete: true,
+                    },
+                  },
+
+                  {
+                    name: "query",
+                    list: "/query",
+                    create: "/query/create/:id",
+                    edit: "/query/edit/:id",
+                    show: "/query/show/:id",
                     
                     meta: {
                       canDelete: true,
@@ -185,7 +210,16 @@ function App() {
                         fallback={<CatchAllNavigate to="/login" />}
                       >
                         <ThemedLayoutV2
-                          Header={() => <Header sticky />}
+                         Title={({ collapsed }) => (
+                          <ThemedTitleV2
+                            // collapsed is a boolean value that indicates whether the <Sidebar> is collapsed or not
+                            collapsed={collapsed}
+                            icon={<img src="https://client-weld-eight.vercel.app/logo.png" />}
+                            text="Alertify"
+                          />
+                        )}
+
+                          Header={() => <CustomHeader sticky />}
                           Sider={(props) => <ThemedSiderV2 {...props} fixed />}
                           // Sider={CustomSider}
                         >
@@ -214,6 +248,13 @@ function App() {
                       <Route path="create/:id" element={<ParticularCreate />} />
                       <Route path="edit/:id" element={<ParticularEdit />} />
                       <Route path="show/:id" element={<ParticularShow />} />
+                    </Route>
+
+                    <Route path="/query">
+                      <Route index element={<QeueryList />} />
+                      <Route path="create/:id" element={<QeueryCreate />} />
+                      <Route path="edit/:id" element={<QeueryEdit />} />
+                      <Route path="show/:id" element={<QeueryShow />} />
                     </Route>
                   
                     <Route path="/payments">
@@ -249,23 +290,14 @@ function App() {
                                 
                     <Route path="*" element={<ErrorComponent />} />
                   </Route>
-                  <Route
-                    element={
-                      <Authenticated
-                        key="authenticated-outer"
-                        fallback={<Outlet />}
-                      >
-                        <NavigateToResource />
-                      </Authenticated>
-                    }
-                  >
+               
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route
                       path="/forgot-password"
                       element={<ForgotPassword />}
                     />
-                  </Route>
+                 
                 </Routes>
 
                 <RefineKbar />

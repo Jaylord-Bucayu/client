@@ -23,7 +23,7 @@ p, admin, sections,
 p, admin, students, 
 p, admin, particulars,
 p, admin, clearance,
-
+p, admin, query,
 p, admin, sections/add/*/*,
  
 p, student, fees, list
@@ -31,5 +31,5 @@ p, student, payments, list
 
 
 p, parent, clearance, list
-
+p, parent, query
 `);

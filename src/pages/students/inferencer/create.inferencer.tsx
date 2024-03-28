@@ -30,6 +30,20 @@ export const CreateInferencer: React.FC<IResourceComponentsProps> = () => {
         <Create saveButtonProps={saveButtonProps}>
             <Form {...formProps} layout="vertical">
 
+
+            <Form.Item
+                    label="Student ID"
+                    name={["user", "studentId"]}
+                    rules={[
+                        {
+                            required: true,
+                        },
+                    ]}
+                >
+                    <Input />
+                </Form.Item>
+
+
             <Form.Item
                     label="First name"
                     name={["firstname"]}
