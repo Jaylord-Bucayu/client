@@ -1,3 +1,3 @@
-export { Header } from "./header";
+export { CustomHeader } from "./header";
 export { Sider } from "./sidebar"
 
