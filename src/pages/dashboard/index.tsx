@@ -1,8 +1,8 @@
 import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
-import { Card, Col, Row } from 'antd';
-import { useOne, BaseKey,useList, HttpError } from "@refinedev/core";
+import { Card, Col, Row,Space  } from 'antd';
+import { useList, HttpError } from "@refinedev/core";
 
 
 interface IProduct {
@@ -15,30 +15,17 @@ interface IProduct {
 
 const Dashboard = () => {
 
-    const { data, isLoading, isError } = useList<IProduct, HttpError>({
+    
+    const { data } = useList<IProduct, HttpError>({
         resource: "dashboard",
       });
 
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const product:any = data?.data;
 
     console.log({product})
 
-
-    // Sample data for the number of students per section
-    const studentsPerSectionData = [
-        { section: 'A', students: 30 },
-        { section: 'B', students: 25 },
-        { section: 'C', students: 20 },
-        { section: 'D', students: 15 }
-    ];
-
-    // Sample data for the list of sections
-    const sections = ['A', 'B', 'C', 'D'];
-
-    // Dummy data for total fees and number of students
-    const totalFees = 10000;
-    const totalStudents = studentsPerSectionData.reduce((acc, cur) => acc + cur.students, 0);
 
     return (
         <div className="container mx-auto p-4">
@@ -46,18 +33,30 @@ const Dashboard = () => {
 
             <Row gutter={16}>
     <Col span={8}>
-      <Card title="Total Student" bordered={false}>
-       {product?.total_students}
+      <Card title="Total Students" bordered={false}>
+      <Space size="large" style={{ width: '100%', justifyContent: 'space-between' }}>
+     <h1>{product?.total_students}</h1>
+       <img width="94" height="94" src="https://img.icons8.com/3d-fluency/94/students.png" alt="students"/>
+       </Space>
       </Card>
     </Col>
     <Col span={8}>
-      <Card title="Total Section" bordered={false}>
-      {product?.total_sections}
+      <Card title="Total Sections" bordered={false}>
+      <Space size="large" style={{ width: '100%', justifyContent: 'space-between' }}>
+            <h1> {product?.total_sections}</h1>
+            <img width="94" height="94" src="https://img.icons8.com/fluency/94/course-assign.png" alt="course-assign"/>
+        </Space>
+     
+      
       </Card>
     </Col>
     <Col span={8}>
-      <Card title="Total unpaid fees" bordered={false}>
-      {product?.total_fees}
+      <Card title="Total Unpaid Fees" bordered={false}>
+      <Space size="large" style={{ width: '100%', justifyContent: 'space-between' }}>
+     <h1> {product?.total_fees}</h1>
+     <img width="94" height="94" src="https://img.icons8.com/external-flaticons-flat-flat-icons/94/external-fees-automotive-dealership-flaticons-flat-flat-icons.png" alt="external-fees-automotive-dealership-flaticons-flat-flat-icons"/>
+      </Space>
+     
       </Card>
     </Col>
   </Row>
