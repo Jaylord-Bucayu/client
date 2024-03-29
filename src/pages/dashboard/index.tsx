@@ -72,7 +72,7 @@ const Dashboard = () => {
                 <div className="bg-white p-4 rounded-lg shadow-md">
                     
                     <ResponsiveContainer width="100%" height={300}>
-                        <BarChart data={product.students_per_section}>
+                        <BarChart data={product?.students_per_section}>
                             <XAxis dataKey="section" />
                             <YAxis />
                             <Tooltip />
