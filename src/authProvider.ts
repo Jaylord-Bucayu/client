@@ -6,6 +6,8 @@ export const TOKEN_KEY = "refine-auth";
 export const authProvider: AuthBindings = {
   login: async ({ username, email, password }) => {
 
+    await axios.get("https://core-gpuv.onrender.com/ping")
+    
     const response = await axios.post("https://core-gpuv.onrender.com/login", { email, password });
   
     
@@ -66,6 +68,8 @@ export const authProvider: AuthBindings = {
         'Authorization': `Bearer ${token}`
       }
     };
+
+   
 
     const response = await axios.post("https://core-gpuv.onrender.com/currentUser", { },config);
 
