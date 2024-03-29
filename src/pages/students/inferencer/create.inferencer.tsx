@@ -33,7 +33,7 @@ export const CreateInferencer: React.FC<IResourceComponentsProps> = () => {
 
             <Form.Item
                     label="Student ID"
-                    name={["user", "studentId"]}
+                    name={["studentId"]}
                     rules={[
                         {
                             required: true,

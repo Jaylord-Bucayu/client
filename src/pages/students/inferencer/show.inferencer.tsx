@@ -79,6 +79,7 @@ export const InferencerShow: React.FC<IResourceComponentsProps> = () => {
     const record = data?.data;
 
 
+    console.log({record})
     const { data: feesData, isLoading: feesLoading } = useOne<IFee>({
         resource: "students/fees",
         id: record?.id,
@@ -87,9 +88,9 @@ export const InferencerShow: React.FC<IResourceComponentsProps> = () => {
     const parentDataSource  = [
         {
           key: '1',
-          parentName: record?.user.parent?.name,
-          email: record?.user.parent?.email,
-          mobile: record?.user.parent?.mobile,
+          parentName: record?.parent?.user?.fullname,
+          email: record?.parent?.email,
+          mobile: record?.parent?.mobile,
         },
         // Add more data as needed
       ];
@@ -106,20 +107,20 @@ export const InferencerShow: React.FC<IResourceComponentsProps> = () => {
                         
        <Descriptions column={1} bordered>
       <Descriptions.Item label={<Title level={5} style={{ fontSize: '14px' }}>Full name</Title>}>
-        <Text>{record?.user.fullname}</Text>
+        <Text>{record?.user.user.fullname}</Text>
       </Descriptions.Item>
 
       <Descriptions.Item label={<Title level={5} style={{ fontSize: '14px' }}>Email</Title>}>
-        <Text>{record?.email}</Text>
+        <Text>{record?.user.email}</Text>
       </Descriptions.Item>
       <Descriptions.Item label={<Title level={5} style={{ fontSize: '14px' }}>Mobile</Title>}>
-        <Text>{record?.mobile}</Text>
+        <Text>{record?.user.mobile}</Text>
       </Descriptions.Item>
       <Descriptions.Item label={<Title level={5} style={{ fontSize: '14px' }}>Birthdate</Title>}>
-        <Text>{record?.birthdate || 'N/A'}</Text>
+        <Text>{record?.user.user.birthdate || 'N/A'}</Text>
       </Descriptions.Item>
       <Descriptions.Item label={<Title level={5} style={{ fontSize: '14px' }}>Section</Title>}>
-        <Text>{record?.user.section}</Text>
+        <Text>{record?.user?.user.section}</Text>
       </Descriptions.Item>
       {/* Add more title-value pairs as needed */}
     </Descriptions>,

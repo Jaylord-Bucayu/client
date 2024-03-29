@@ -6,7 +6,7 @@ export const TOKEN_KEY = "refine-auth";
 export const authProvider: AuthBindings = {
   login: async ({ username, email, password }) => {
 
-    const response = await axios.post("http://localhost:5000/login", { email, password });
+    const response = await axios.post("https://core-gpuv.onrender.com/login", { email, password });
   
     
 
@@ -24,9 +24,10 @@ export const authProvider: AuthBindings = {
       
         localStorage.setItem('role',response.data.data.role)
          localStorage.setItem(TOKEN_KEY, response.data.token);
+    
       return {
         success: true,
-        redirectTo: "/",
+        redirectTo: "/dashboard",
       };
     }
     

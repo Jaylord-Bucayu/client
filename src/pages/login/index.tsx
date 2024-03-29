@@ -8,7 +8,7 @@ export const Login = () => {
       registerLink={false}
       forgotPasswordLink={false}
       title={
-      <ThemedTitleV2 text="Alertify" icon={<img src="https://moisture-level-mytj.vercel.app/logo.png" />} collapsed={false} />} 
+      <ThemedTitleV2 text="Alertify" icon={<img src="https://client-weld-eight.vercel.app/logo.png" />} collapsed={false} />} 
      
       // formProps={{
       //   initialValues: { email: "demo@refine.dev", password: "demodemo" },

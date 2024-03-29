@@ -25,11 +25,15 @@ p, admin, particulars,
 p, admin, clearance,
 p, admin, query,
 p, admin, sections/add/*/*,
- 
+p, admin, fees
+p, admin, dashboard
+
 p, student, fees, list
 p, student, payments, list
+p, student, dashboard
 
 
 p, parent, clearance, list
 p, parent, query
+p, parent, dashboard
 `);

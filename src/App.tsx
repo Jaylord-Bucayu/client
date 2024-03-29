@@ -36,6 +36,8 @@ import {
   PaymentsShow,
 } from "./pages/payments";
 
+import Dashboard from "./pages/dashboard/index";
+
 import {
   ParticularCreate,
   ParticularEdit,
@@ -90,6 +92,7 @@ import { Login } from "./pages/login";
 import { Register } from "./pages/register";
 import { CanAccess } from "@refinedev/core";
 import { newEnforcer } from "casbin";
+
   const role = localStorage.getItem("role")
   
 function App() {
@@ -106,6 +109,7 @@ function App() {
                 authProvider={authProvider}
                 accessControlProvider={{
                   can: async ({ resource, action }) => {
+
                     const enforcer = await newEnforcer(model, adapter);
                     const can = await enforcer.enforce(role, resource, action);
         
@@ -114,7 +118,17 @@ function App() {
                     };
                   },
                 }}
-                resources={[               
+                resources={[      
+                  {
+                    name: "dashboard",
+                    list: "/dashboard",
+                   
+                    
+                    meta: {
+                      canDelete: true,
+                    },
+                  },         
+
                   {
                     name: "particulars",
                     list: "/particulars",
@@ -232,9 +246,14 @@ function App() {
                   >
                     <Route
                       index
-                      element={<NavigateToResource resource="students" />}
+                      element={<NavigateToResource resource="dashboard" />}
                     />
                     
+                    <Route path="/dashboard">
+                      <Route index element={<Dashboard />} />
+                     
+                    </Route>
+
                     
                     <Route path="/students">
                       <Route index element={<StudentList />} />
