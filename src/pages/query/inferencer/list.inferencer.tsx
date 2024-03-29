@@ -1,5 +1,5 @@
 import React from "react";
-import { IResourceComponentsProps, BaseRecord } from "@refinedev/core";
+import { IResourceComponentsProps, BaseRecord,useApiUrl,useCustom} from "@refinedev/core";
 import {
     useTable,
     List,
@@ -10,9 +10,37 @@ import {
 } from "@refinedev/antd";
 import { Table, Space } from "antd";
 
+
+interface PostUniqueCheckResponse {
+    isAvailable: boolean;
+    data:any
+  }
+
 export const InferencerList: React.FC<IResourceComponentsProps> = () => {
+    
+    const token = localStorage.getItem("refine-auth");
+
+    const apiUrl = useApiUrl();
+
+    const { data, isLoading } = useCustom<PostUniqueCheckResponse>({
+      url: `${apiUrl}/currentUser`,
+      method: "post",
+      config: {
+        headers: {
+          "Authorization": "Bearer " + token,
+        },
+        
+      },
+    });
+
+    const role = localStorage.getItem("role");
+   
+    const user_id = data?.data?.data?.id
+    const resource = role == 'admin' ? 'query' : `query/parent/${user_id}`
+    
     const { tableProps } = useTable({
         syncWithLocation: true,
+        resource
     });
 
     return (

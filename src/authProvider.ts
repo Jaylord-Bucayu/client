@@ -67,11 +67,11 @@ export const authProvider: AuthBindings = {
       }
     };
 
-    const response = await axios.post("http://localhost:5000/currentUser", { },config);
+    const response = await axios.post("https://core-gpuv.onrender.com/currentUser", { },config);
 
     if (token) {
       return {
-        id: 1,
+        id: response.data.data.id,
         name: response.data.data.fullname,
 
       };

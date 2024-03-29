@@ -33,7 +33,15 @@ export const InferencerList: React.FC<IResourceComponentsProps> = () => {
 
       
         
-                <Table.Column dataIndex="section_name" title="Section Name" />
+                <Table.Column dataIndex={["section","section_name"]} title="Section Name" />
+
+                <Table.Column dataIndex={["particulars"]} title="Particular Name" />
+
+                <Table.Column
+                    dataIndex={["dueDate"]}
+                    title="Due date"
+                    render={(value: any) => <DateField value={value} />}
+                />
                 <Table.Column
                     dataIndex={["createdAt"]}
                     title="Created At"
