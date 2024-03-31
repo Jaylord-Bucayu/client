@@ -33,7 +33,7 @@ export const InferencerCreate: React.FC<IResourceComponentsProps> = () => {
     return (
         <Create saveButtonProps={saveButtonProps}>
             <Form {...formProps} layout="vertical">
-                <Form.Item
+                {/* <Form.Item
                     label="Amount"
                     name={["amount"]}
                     rules={[
@@ -43,7 +43,7 @@ export const InferencerCreate: React.FC<IResourceComponentsProps> = () => {
                     ]}
                 >
                     <Input />
-                </Form.Item>
+                </Form.Item> */}
                
                 <Form.Item
                     label="Description"

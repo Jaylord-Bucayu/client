@@ -47,7 +47,7 @@ export const InferencerList: React.FC<IResourceComponentsProps> = () => {
         <List>
             <Table {...tableProps} rowKey="id">
                 <Table.Column dataIndex="id" title="Id" />
-                <Table.Column dataIndex="amount" title="Amount" />
+                {/* <Table.Column dataIndex="amount" title="Amount" /> */}
                 <Table.Column dataIndex="status" title="Status" />
                 <Table.Column dataIndex="description" title="Description" />
                 <Table.Column dataIndex="subject" title="Subject" />

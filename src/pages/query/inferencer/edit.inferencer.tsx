@@ -40,7 +40,7 @@ export const EditInferencer: React.FC<IResourceComponentsProps> = () => {
                 >
                     <Input readOnly disabled />
                 </Form.Item>
-                <Form.Item
+                {/* <Form.Item
                     label="Amount"
                     name={["amount"]}
                     rules={[
@@ -50,7 +50,7 @@ export const EditInferencer: React.FC<IResourceComponentsProps> = () => {
                     ]}
                 >
                     <Input />
-                </Form.Item>
+                </Form.Item> */}
 
                 <Form.Item
                     label="Status"

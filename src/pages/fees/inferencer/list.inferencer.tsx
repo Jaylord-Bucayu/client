@@ -1,5 +1,5 @@
 import React from "react";
-import { IResourceComponentsProps, BaseRecord, useMany } from "@refinedev/core";
+import { IResourceComponentsProps, BaseRecord, useMany ,useApiUrl,useCustom} from "@refinedev/core";
 import {
     useTable,
     List,
@@ -10,20 +10,54 @@ import {
 } from "@refinedev/antd";
 import { Table, Space } from "antd";
 
+interface PostUniqueCheckResponse {
+    isAvailable: boolean;
+    data:any
+  }
+
+
 export const InferencerList: React.FC<IResourceComponentsProps> = () => {
+
+
+
+    const token = localStorage.getItem("refine-auth");
+
+    const apiUrl = useApiUrl();
+
+    const { data, isLoading } = useCustom<PostUniqueCheckResponse>({
+      url: `${apiUrl}/currentUser`,
+      method: "post",
+      config: {
+        headers: {
+          "Authorization": "Bearer " + token,
+        },
+        
+      },
+    });
+
+    const role = localStorage.getItem("role");
+   
+
+    const user_id = data?.data?.data?.id
+     const resource = role == 'admin' ? 'fees' : `fees/student/${user_id}`
+
+    
     const { tableProps } = useTable({
         syncWithLocation: true,
+        resource
     });
 
-    const { data: studentData, isLoading: studentIsLoading } = useMany({
-        resource: "fees",
-        ids: tableProps?.dataSource?.map((item) => item?.student) ?? [],
-        queryOptions: {
-            enabled: !!tableProps?.dataSource,
-        },
-    });
 
-    console.log(studentData)
+
+    // const { data: studentData, isLoading: studentIsLoading } = useMany({
+    //     resource: "fees",
+    //     ids: tableProps?.dataSource?.map((item) => item?.student) ?? [],
+    //     queryOptions: {
+    //         enabled: !!tableProps?.dataSource,
+    //     },
+    // });
+
+   
 
     return (
         <List>
