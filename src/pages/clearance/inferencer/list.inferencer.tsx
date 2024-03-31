@@ -1,5 +1,5 @@
 import React from "react";
-import { IResourceComponentsProps, BaseRecord } from "@refinedev/core";
+import { IResourceComponentsProps, BaseRecord,useApiUrl,useCustom } from "@refinedev/core";
 import {
     useTable,
     List,
@@ -10,13 +10,50 @@ import {
 } from "@refinedev/antd";
 import { Table, Space ,Modal,Form,Input, Select} from "antd";
 
+
+interface PostUniqueCheckResponse {
+  isAvailable: boolean;
+  data:any
+}
+
+
+
 export const InferencerList: React.FC<IResourceComponentsProps> = () => {
-    const { tableProps } = useTable({
-        resource:`students/fees/65aa0d2400e65fec90b673f9`,
-        syncWithLocation:true
+
+
+  const token = localStorage.getItem("refine-auth");
+
+    const apiUrl = useApiUrl();
+
+    const { data, isLoading } = useCustom<PostUniqueCheckResponse>({
+      url: `${apiUrl}/currentUser`,
+      method: "post",
+      config: {
+        headers: {
+          "Authorization": "Bearer " + token,
+        },
+        
+      },
     });
 
  
+  
+    const user_id = data?.data?.data?.id
+
+
+    const { tableProps } = useTable({
+        resource:`students/fees/${user_id}`,
+        syncWithLocation:true
+    });
+
+
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
+  
+
+
+    
 
     const {
         modalProps: editModalProps,
@@ -36,17 +73,20 @@ export const InferencerList: React.FC<IResourceComponentsProps> = () => {
         warnWhenUnsavedChanges: true,
       });
 
+      const totalAmount = tableProps?.dataSource?.reduce((total, item) => total + item.amount, 0) || 0;
 
     return (    
         <>
         <List>
-            <Table {...tableProps} rowKey="id">x
+
+            <Table {...tableProps} rowKey="id" footer={() => (<div><h3>Total fee: ₱ {totalAmount} </h3> </div>)}>x
          
             <Table.Column dataIndex="particulars" title="Particular" />
             <Table.Column dataIndex="amount" title="Amount" />
             <Table.Column dataIndex="status" title="Status" />
             <Table.Column dataIndex={["student","firstname"]} title="Student Name" />
-                <Table.Column
+            
+                {/* <Table.Column
                     title="Actions"
                     dataIndex="actions"
                     key="actions"
@@ -56,11 +96,17 @@ export const InferencerList: React.FC<IResourceComponentsProps> = () => {
                            <ShowButton hideText size="small" recordItemId={record._id} onClick={() => showModalShow(record._id)}  />
                         </Space>
                     )}
-                />
+                /> */}
+               
+       
+                
             </Table>
+
+          
+            
         </List>
 
-        <Modal {...showModalProps}>
+        {/* <Modal {...showModalProps}>
          <Form {...showFormProps} layout="vertical">
            <Form.Item
              label="Amount"
@@ -142,7 +188,7 @@ export const InferencerList: React.FC<IResourceComponentsProps> = () => {
              />
            </Form.Item>
          </Form>
-       </Modal>
+       </Modal> */}
 
        </>
     );

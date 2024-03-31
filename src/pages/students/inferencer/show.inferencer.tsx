@@ -82,7 +82,7 @@ export const InferencerShow: React.FC<IResourceComponentsProps> = () => {
     console.log({record})
     const { data: feesData, isLoading: feesLoading } = useOne<IFee>({
         resource: "students/fees",
-        id: record?.id,
+        id: record?.user.user.id,
     });
 
     const parentDataSource  = [
@@ -150,7 +150,7 @@ export const InferencerShow: React.FC<IResourceComponentsProps> = () => {
     return (
         <Show isLoading={isLoading}>
             <Collapse items={items} defaultActiveKey={['1']} /> 
-            <Link to={`/particulars/create/${record?.id}`}><Button style={{marginTop:'15px'}}>Add Particular</Button></Link>     
+            <Link to={`/particulars/create/${record?.user.user.id}`}><Button style={{marginTop:'15px'}}>Add Particular</Button></Link>     
         </Show>
     );
 };
