@@ -93,7 +93,7 @@ import { Register } from "./pages/register";
 import { CanAccess } from "@refinedev/core";
 import { newEnforcer } from "casbin";
 
-  const role = localStorage.getItem("role")
+  const role = localStorage.getItem("role") || "admin"
   
 function App() {
   return (
@@ -244,13 +244,13 @@ function App() {
                       </Authenticated>
                     }
                   >
-                    <Route
+                    {/* <Route
                       index
                       element={<NavigateToResource resource="dashboard" />}
-                    />
+                    /> */}
                     
-                    <Route path="/dashboard">
-                      <Route index element={<Dashboard />} />
+                    <Route path="/">
+                      <Route  element={<Dashboard/>} />
                      
                     </Route>
 
@@ -306,8 +306,10 @@ function App() {
                       <Route path="edit/:id" element={<ClearanceEdit />} />
                       <Route path="show/:id" element={<ClearanceShow />} />
                     </Route>
-                                
-                    <Route path="*" element={<ErrorComponent />} />
+                    
+                    <Route path="/" element={<Dashboard/>} />
+
+                    <Route path="*" element={<CatchAllNavigate to="/login" />} />
                   </Route>
                
                     <Route path="/login" element={<Login />} />
