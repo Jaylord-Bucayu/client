@@ -29,7 +29,7 @@ export const authProvider: AuthBindings = {
     
       return {
         success: true,
-        redirectTo: "/dashboard",
+        redirectTo: "/",
       };
     }
     

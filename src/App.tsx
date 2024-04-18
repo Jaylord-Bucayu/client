@@ -247,12 +247,9 @@ function App() {
                     {/* <Route
                       index
                       element={<NavigateToResource resource="dashboard" />}
+             
                     /> */}
-                    
-                    <Route path="/">
-                      <Route  element={<Dashboard/>} />
-                     
-                    </Route>
+                   
 
                     
                     <Route path="/students">
@@ -307,7 +304,7 @@ function App() {
                       <Route path="show/:id" element={<ClearanceShow />} />
                     </Route>
                     
-                    <Route path="/" element={<Dashboard/>} />
+                    <Route path="/dashboard" element={<Dashboard/>} />
 
                     <Route path="*" element={<CatchAllNavigate to="/login" />} />
                   </Route>
